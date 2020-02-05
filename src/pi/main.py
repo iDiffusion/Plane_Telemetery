@@ -1,8 +1,9 @@
 import os
 import time
+import Humidity as Humidity
 
 debug = True
-hum = new Humidity(4);
+hum = Humidity(4);
 
 try:
     f = open('/media/pi/data/humidity.csv', 'a+')
