@@ -1,6 +1,6 @@
 import os
 import time
-import Humidity as Humidity
+from Sensor import Humidity
 
 debug = True
 hum = Humidity(4);
@@ -35,4 +35,4 @@ except:
     pass
 
 finally:
-    hum.close()
+    pass
