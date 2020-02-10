@@ -7,6 +7,7 @@ public:
   LED_Controls(int pin);
   void ON();
   void OFF();
+  void set(int perc);
 private:
   int _pin;
 };
