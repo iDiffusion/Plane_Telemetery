@@ -8,6 +8,7 @@ public:
   void ON();
   void OFF();
   void set(int perc);
+  bool switchOnOff();
 private:
   int _pin;
 };

@@ -14,6 +14,12 @@ void LED_Controls::OFF(){
 }
 
 void LED_Controls::set(int perc){
-  int value = map(perc, 0, 100, 0, 127);
+  int value = map(perc, 0, 100, 0, 255);
   analogWrite(_pin, value);
+}
+
+bool LED_Controls::switchOnOff(){
+	int state = digitalRead(_pin);
+	digitalWrite(_pin, !state);
+	return !state;
 }
