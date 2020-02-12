@@ -1,0 +1,15 @@
+# Syntax Coloring Map For LED_Controls
+
+# Datatypes (KEYWORD1)
+LED    KEYWORD1
+
+# Methods and Functions (KEYWORD2)
+ON    KEYWORD2
+OFF   KEYWORD2
+set   KEYWORD2
+switchOnOff   KEYWORD2
+getState    KEYWORD2
+
+# Instances (KEYWORD2)
+
+# Constants (LITERAL1)
