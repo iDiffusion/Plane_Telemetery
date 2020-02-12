@@ -8,12 +8,12 @@
 
 unsigned long ltg, ltb;
 
- setup() {
+void setup() {
   pinMode(blueLED, OUTPUT);
   pinMode(greenLED, OUTPUT);
   pinMode(redLED, OUTPUT);
   pinMode(greenLED, OUTPUT);
-  pinMode(btnPin,INPUT_PULLUP);
+  pinMode(btnPin, INPUT_PULLUP);
 
   turnLEDON(blueLED);
   turnLEDON(greenLED);
@@ -23,47 +23,45 @@ unsigned long ltg, ltb;
 void loop() {
   ltb = checkTimePast(ltb, waitTimeBlue, blueLED);
   ltg = checkTimePast(ltg, waitTimeGreen, greenLED);
-  if (checkBtnState(btnPin)){
-    switchONOFF(greenLED);
-    switchONOFF(blueLED);
+  if (checkBtnState(btnPin)) {
+    switchOnOff(greenLED);
+    switchOnOff(blueLED);
     ltg = ltb = millis();
   }
   delay(10);
 }
 
-bool checkBtnState (int pin){
+bool checkBtnState (int pin) {
   bool state = false;
-  if(!digitalRead(pin)){
+  if (!digitalRead(pin)) {
     state = true;
   }
-  while(!digitalRead(pin)){}
+  while (!digitalRead(pin)) {}
   return state;
 }
 
-unsigned long checkTimePast(int lastTime, int waitTime, int pin){
-  if(lastTime + waitTime < millis()){
-    switchONOFF(pin);
+unsigned long checkTimePast(int lastTime, int waitTime, int pin) {
+  if (lastTime + waitTime < millis()) {
+    switchOnOff(pin);
     return millis();
   }
   return lastTime;
 }
 
-void turnLEDON(int pin){
+void turnLEDON(int pin) {
   digitalWrite(pin, HIGH);
 }
 
-void turnLEDOFF(int pin){
+void turnLEDOFF(int pin) {
   digitalWrite(pin, LOW);
 }
 
-void switchONOFF(int pin){
+void switchOnOff(int pin) {
   int state = digitalRead(pin);
   digitalWrite(pin, !state);
 }
 
-void setLEDBrightness(int pin, int perc){
+void setLEDBrightness(int pin, int perc) {
   int brightness = map(perc, 0, 100, 0, 255);
-  analogWrite(pin, brightness); 
+  analogWrite(pin, brightness);
 }
-
-

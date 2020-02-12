@@ -5,7 +5,13 @@
 #include <Wire.h>
 
 void setup() {
+  // Join I2C bus as slave with address 8
+  Wire.begin(0x8);
 
+  // Call receiveEvent when data received
+  Wire.onReceive(receiveEvent);
+
+  //TODO setup pins as outputs or inputs
 }
 
 void loop() {

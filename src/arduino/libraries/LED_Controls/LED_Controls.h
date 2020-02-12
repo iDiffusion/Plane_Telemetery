@@ -3,14 +3,14 @@
 #include "arduino.h"
 
 class LED_Controls {
-public:
-  LED_Controls(int pin);
-  void ON();
-  void OFF();
-  void set(int perc);
-  bool switchOnOff();
-private:
-  int _pin;
+  public:
+    LED_Controls(int pin);
+    void ON();
+    void OFF();
+    void set(int perc);
+    bool switchOnOff();
+  private:
+    int _pin;
 };
 
 #endif

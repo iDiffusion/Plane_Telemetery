@@ -17,9 +17,13 @@ void setup() {
   // Call receiveEvent when data received
   Wire.onReceive(receiveEvent);
 
-  // Setup ;edpin as output and turn LED off
+  // Setup ledpin as output and turn LED off
   pinMode(ledPin, OUTPUT);
   digitalWrite(ledPin, LOW);
+}
+
+void loop() {
+  delay(100);
 }
 
 // Function that executes whenever data is received from master
@@ -28,7 +32,4 @@ void receiveEvent(int howMany) {
     char c = Wire.read(); // receive byte as a character
     digitalWrite(ledPin, c);
   }
-}
-void loop() {
-  delay(100);
 }
