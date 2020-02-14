@@ -1,32 +1,29 @@
 #define blueLED 13
 #define greenLED 12
-#define yellowLED 11
-#define redLED 10
 #define btnPin 7
 #define waitTimeGreen 500
 #define waitTimeBlue 1000
+#define btnRegTime 10
 
-unsigned long ltg, ltb;
+unsigned long lastTimeGreen, lastTimeBlue;
 
 void setup() {
   pinMode(blueLED, OUTPUT);
-  pinMode(greenLED, OUTPUT);
-  pinMode(redLED, OUTPUT);
   pinMode(greenLED, OUTPUT);
   pinMode(btnPin, INPUT_PULLUP);
 
   turnLEDON(blueLED);
   turnLEDON(greenLED);
-  ltg = ltb = millis();
+  lastTimeGreen = lastTimeBlue = millis();
 }
 
 void loop() {
-  ltb = checkTimePast(ltb, waitTimeBlue, blueLED);
-  ltg = checkTimePast(ltg, waitTimeGreen, greenLED);
+  lastTimeBlue = checkTimePast(lastTimeBlue, waitTimeBlue, blueLED);
+  lastTimeGreen = checkTimePast(lastTimeGreen, waitTimeGreen, greenLED);
   if (checkBtnState(btnPin)) {
     switchOnOff(greenLED);
     switchOnOff(blueLED);
-    ltg = ltb = millis();
+    lastTimeGreen = lastTimeBlue = millis();
   }
   delay(10);
 }

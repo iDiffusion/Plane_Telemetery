@@ -1,4 +1,4 @@
-# Syntax Coloring Map For LED_Controls
+# Syntax Coloring Map For LED
 
 # Datatypes (KEYWORD1)
 LED    KEYWORD1

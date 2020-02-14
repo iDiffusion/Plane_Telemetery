@@ -1,5 +1,5 @@
 /*
-  blink.ino - Library for using leds
+  blink.ino - example program making leds blink
   Created by Tylon I. Lee, February 11, 2020.
   Released on github as iDiffusion
 */
