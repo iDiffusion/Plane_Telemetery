@@ -1,26 +1,57 @@
 /*
-  Obtain all the sensor data and send it to the raspberry pi
+  Recieve and fomrat sensor data from slaves
 */
 
+// Include Arduino Wire library for I2C
 #include <Wire.h>
 
+// Empty I2C addesses are 0x08, 0x09, 0x0a, 0x0b, and more
+#define slave_address_1 0x08
+#define slave_address_2 0x09
+
+// Define Slave answer size
+#define ANSWERSIZE 6
+
+// Hold the response from slaves till its parsed
+Byte response[ANSWERSIZE];
+
 void setup() {
-  // Join I2C bus as slave with address 8
-  Wire.begin(0x8);
+  // Initialize I2C communications as Master
+  Wire.begin();
 
-  // Call receiveEvent when data received
-  Wire.onReceive(receiveEvent);
-
-  //TODO setup pins as outputs or inputs
+  // Setup serial monitor
+  Serial.begin(9600);
+  Serial.println("I2C Master Device:");
 }
 
 void loop() {
+  // Time delay in loop
+  delay(50);
+}
+
+void parseData(){
 
 }
 
-void receiveEvent(int howMany) {
-  while (Wire.available()) { // loop through all but the last
-    char c = Wire.read(); // receive byte as a character
-    //TODO interpret data recieved on the I2C Bus
-  }
+void getData(int slave_address){
+// Read response from Slave
+ Wire.requestFrom(slave_address, ANSWERSIZE);
+
+ int i = 0;
+ bool go = false;
+  // Add bytes to an array
+ while (Wire.available()) {
+   byte b = Wire.read();
+   if(b == 255){
+     go = true;
+   }
+   if (go) {
+     response [i++] = b;
+   }
+ }
+
+ //TODO interpret data recieved on the I2C Bus
+
+ // Print to Serial Monitor
+ Serial.println(response);
 }
