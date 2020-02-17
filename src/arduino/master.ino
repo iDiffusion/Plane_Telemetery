@@ -12,9 +12,6 @@
 // Define Slave answer size
 #define ANSWERSIZE 6
 
-// Hold the response from slaves till its parsed
-Byte response[ANSWERSIZE];
-
 void setup() {
   // Initialize I2C communications as Master
   Wire.begin();
@@ -29,29 +26,38 @@ void loop() {
   delay(50);
 }
 
-void parseData(){
+int parseData(Byte response[]){
+  //TODO interpret data recieved on the I2C Bus
 
 }
 
 void getData(int slave_address){
-// Read response from Slave
- Wire.requestFrom(slave_address, ANSWERSIZE);
+  // Read response from Slave
+  Wire.requestFrom(slave_address, ANSWERSIZE);
 
- int i = 0;
- bool go = false;
+  // Hold the response from slaves till its parsed
+  Byte response[ANSWERSIZE];
+  int sensor = 0;
+
+  int i = 0;
+  bool go = false;
   // Add bytes to an array
- while (Wire.available()) {
-   byte b = Wire.read();
-   if(b == 255){
-     go = true;
-   }
-   if (go) {
-     response [i++] = b;
-   }
- }
+  while (Wire.available()) {
+    byte b = Wire.read();
+    if(b == 255){
+      go = true;
+    }
+    if (go) {
+      if(i == 1){
+        sensor = b;
+      }
+      response [i++] = b;
+    }
+  }
 
- //TODO interpret data recieved on the I2C Bus
+  // Interpret data recieved on the I2C Bus
+  parseData(response);
 
- // Print to Serial Monitor
- Serial.println(response);
+  // Print to Serial Monitor
+  Serial.println(response);
 }
