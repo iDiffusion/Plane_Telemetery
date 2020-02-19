@@ -6,7 +6,7 @@
 
 #include "LED.h"
 
-// initialize the LED object nemed led
+// initialize the LED object named led
 LED led(LED_BUILTIN);
 
 void setup() {
