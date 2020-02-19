@@ -10,7 +10,7 @@
 // Define Slave answer size
 #define ANSWERSIZE 6
 
-byte senor = 0;
+byte sensor = 0;
 int value = 0;
 
 void setup() {
@@ -22,6 +22,10 @@ void setup() {
 
   // Function to run when data received from master
   Wire.onReceive(receiveEvent);
+
+  // Setup serial monitor
+  Serial.begin(9600);
+  Serial.println("I2C Slave Device:");
 
   //TODO setup pins as outputs or inputs
 }
@@ -46,7 +50,7 @@ void requestEvent() {
   response[0] = 255;
 
   // Format answer as array
-  if(value < 0){
+  if (value < 0) {
     response[1] = response[2] = response[3] = response[4] = 0;
   }
   else if (0 <= value && value < 256) {
@@ -74,7 +78,7 @@ void requestEvent() {
   response[5] = sensor;
 
   // Send response back to Master
-  Wire.write(response,sizeof(response));
+  Wire.write(response, sizeof(response));
 
   // Print to Serial Monitor
   Serial.println("Request event");

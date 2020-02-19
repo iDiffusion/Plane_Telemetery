@@ -26,17 +26,17 @@ void loop() {
   delay(50);
 }
 
-int parseData(Byte response[]){
+int parseData(byte response[]) {
   //TODO interpret data recieved on the I2C Bus
 
 }
 
-void getData(int slave_address){
+void getData(int slave_address) {
   // Read response from Slave
   Wire.requestFrom(slave_address, ANSWERSIZE);
 
   // Hold the response from slaves till its parsed
-  Byte response[ANSWERSIZE];
+  byte response[ANSWERSIZE];
   int sensor = 0;
 
   int i = 0;
@@ -44,20 +44,26 @@ void getData(int slave_address){
   // Add bytes to an array
   while (Wire.available()) {
     byte b = Wire.read();
-    if(b == 255){
+    if (b == 255) {
       go = true;
     }
     if (go) {
-      if(i == 1){
+      if (i == 5) {
         sensor = b;
       }
       response [i++] = b;
     }
   }
 
+  // Print to Serial Monitor
+  Serial.print("Response = ");
+  for (i = 0; i < ANSWERSIZE; i++) {
+    Serial.print(response[i]);
+    Serial.print(" ");
+  }
+  Serial.println();
+
   // Interpret data recieved on the I2C Bus
   parseData(response);
 
-  // Print to Serial Monitor
-  Serial.println(response);
 }
