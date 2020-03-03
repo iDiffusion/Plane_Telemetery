@@ -20,8 +20,12 @@ void LED::OFF() {
   digitalWrite(_pin, LOW);
 }
 
-void LED::set(int perc) {
+void LED::setPercent(int perc) {
   int value = map(perc, 0, 100, 0, 255);
+  analogWrite(_pin, value);
+}
+
+void LED::set(int value) {
   analogWrite(_pin, value);
 }
 
@@ -33,4 +37,8 @@ bool LED::switchOnOff() {
 
 bool LED::getState(){
   return digitalRead(_pin);
+}
+
+int LED::getValue(){
+  return analogRead(_pin);
 }

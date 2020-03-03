@@ -1,7 +1,7 @@
 /*
   master_all_sensors.ino
 
-  Recieve and fomrat sensor data from slaves
+  Recieve and fomrat sensor data from slaves and sensors
 
   The circuit (using MEGA):
     RGB LED to digital pin 11-13
@@ -23,6 +23,7 @@
     LCD D7 pin to digital pin 27
     LCD A pin to 220 resistor tied to 5V (or pot)
     LCD K pin to ground
+    Humidity Signal Pin to
 
   Created and Modified by Tylon Ikaika Lee
 */
@@ -30,6 +31,7 @@
 // Include Sensor Libraries
 #include <Wire.h>
 #include <LiquidCrystal.h>
+#include <RGB.h>
 
 // Define pins
 #define blueLED 13
@@ -51,7 +53,7 @@
 #define slave_address_4 0x0b
 
 // Define Constants
-const bool debug = false;
+const bool DEBUG = false;
 const int ANSWERSIZE = 8;
 
 // Define global variables
@@ -66,12 +68,12 @@ void setup() {
   //setup remaining input output pins
   pinMode(blueLED, OUTPUT);
   pinMode(greenLED, OUTPUT);
-  pinMode(redLED, OUTPUT)
+  pinMode(redLED, OUTPUT);
   pinMode(btnLeft, INPUT_PULLUP);
   pinMode(btnRight, INPUT_PULLUP);
 
   //setup serial monitor if debugging
-  if (debug) {
+  if (DEBUG) {
     Serial.begin(9600);
     Serial.println("I2C Master Device:");
   }
@@ -80,46 +82,4 @@ void setup() {
 void loop() {
   // Time delay in loop
   delay(50);
-}
-
-int parseData(byte response[]) {
-  //TODO interpret data recieved on the I2C Bus
-
-}
-
-void getData(int slave_address) {
-  // Read response from Slave
-  Wire.requestFrom(slave_address, ANSWERSIZE);
-
-  // Hold the response from slaves till its parsed
-  byte response[ANSWERSIZE];
-  int sensor = 0;
-
-  int i = 0;
-  bool go = false;
-  // Add bytes to an array
-  while (Wire.available()) {
-    byte b = Wire.read();
-    if (b == 255) {
-      go = true;
-    }
-    if (go) {
-      if (i == 5) {
-        sensor = b;
-      }
-      response [i++] = b;
-    }
-  }
-
-  // Print to Serial Monitor
-  Serial.print("Response = ");
-  for (i = 0; i < ANSWERSIZE; i++) {
-    Serial.print(response[i]);
-    Serial.print(" ");
-  }
-  Serial.println();
-
-  // Interpret data recieved on the I2C Bus
-  parseData(response);
-
 }

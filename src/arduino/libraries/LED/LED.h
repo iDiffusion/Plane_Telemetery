@@ -13,9 +13,11 @@ class LED {
     LED(int pin);
     void ON();
     void OFF();
-    void set(int perc);
+    void setPercent(int perc);
+    void set(int value);
     bool switchOnOff();
     bool getState();
+    int getValue();
   private:
     int _pin;
 };
