@@ -1,5 +1,5 @@
 /*
-  master_all_sensors.ino
+  master.ino
 
   Recieve and fomrat sensor data from slaves and sensors
 
@@ -24,6 +24,13 @@
     LCD A pin to 220 resistor tied to 5V (or pot)
     LCD K pin to ground
 
+  The sensor number is:
+    0 -
+    1 -
+    2 -
+    3 -
+    4 -
+
   Created and Modified by Tylon Ikaika Lee
 */
 
@@ -47,10 +54,10 @@
 #define d7 27
 
 // Empty I2C addesses are 0x08, 0x09, 0x0a, 0x0b, and more
-#define slave_address_1 0x08
+#define slave_address_1 0x08  //
 #define slave_address_2 0x09
-#define slave_address_3 0x0a
-#define slave_address_4 0x0b
+#define slave_address_3 0x0a  // Temperature + humidity = SHT31D
+#define slave_address_4 0x0b  // Temperature + humidity = DHT11
 
 // Define Constants
 const bool DEBUG = false;
@@ -63,6 +70,8 @@ RGB led(redLED, greenLED, blueLED);
 // Define global variables
 unsigned long lastTime;
 int selectedSensor = 0;
+int SensorValue[];
+int count[];
 
 void setup() {
   //setup serial monitor if debugging
@@ -77,11 +86,10 @@ void setup() {
   //setup remaining input output pins
   pinMode(btnLeft, INPUT_PULLUP);
   pinMode(btnRight, INPUT_PULLUP);
-
 }
 
 void loop() {
-  // Time delay in loop
+  // TODO get data from each address
   delay(50);
 }
 
@@ -91,33 +99,27 @@ void getData(int slave_address) {
 
   // Hold the response from slaves till its parsed
   byte response[ANSWERSIZE];
-  int sensor = 0;
-
   int i = 0;
-  bool go = false;
+
   // Add bytes to an array
   while (Wire.available()) {
     byte b = Wire.read();
-    if (b == 255) {
-      go = true;
-    }
-    if (go) {
-      if (i == 5) {
-        sensor = b;
-      }
-      response [i++] = b;
-    }
+    response [i++] = b;
   }
 
+  // Interpret data recieved on the I2C Bus
+  parseData(response);
+
   // Print to Serial Monitor
+  if (!debug) return;
   Serial.print("Response = ");
   for (i = 0; i < ANSWERSIZE; i++) {
     Serial.print(response[i]);
     Serial.print(" ");
   }
   Serial.println();
+}
 
-  // Interpret data recieved on the I2C Bus
-  parseData(response);
-
+void parseData(byte[] response){
+  //TODO create switch statement to handle sensors
 }

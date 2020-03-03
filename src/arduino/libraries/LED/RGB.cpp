@@ -11,7 +11,7 @@ RGB:: RGB(int redPin, int greenPin, int bluePin) {
   pinMode(redPin, OUTPUT);
   pinMode(greenPin, OUTPUT);
   pinMode(bluePin, OUTPUT);
-  _pin = {redPin, greenPin, bluePin}
+  _pin = {redPin, greenPin, bluePin};
   _value = {0, 0, 0};
 }
 

@@ -1,36 +1,35 @@
-/* How to use the DHT-22 sensor with Arduino uno
+/* How to use the DHT-11 sensor with Arduino uno
    Temperature and humidity sensor
 */
 
-#include <DHT.h>
+#include <SimpleDHT.h>
 
-#define DHTPIN 7 // what pin we're connected to
-#define DHTTYPE DHT22 // DHT 22  (AM2302)
-DHT dht(DHTPIN, DHTTYPE); // Initialize DHT sensor for normal 16mhz Arduino
+int pinDHT11 = 2;
+SimpleDHT11 dht11(pinDHT11);
 
-//Variables
-float hum;  //Stores humidity value
-float temp; //Stores temperature value
+byte temperature = 0;
+byte humidity = 0;
 
-void setup()
-{
+void setup() {
   Serial.begin(9600);
-  dht.begin();
 }
 
-void loop()
-{
-  //wait 2 seconds
-  delay(2000);
+void loop() {
+  // start working...
+  Serial.println("=================================");
+  Serial.println("Sample DHT11...");
 
-  //Read data and store it to variables hum and temp
-  hum = dht.readHumidity();
-  temp = dht.readTemperature();
+  // read without samples.
+  int err = SimpleDHTErrSuccess;
+  if ((err = dht11.read(&temperature, &humidity, NULL)) != SimpleDHTErrSuccess) {
+    Serial.print("Read DHT11 failed, err="); Serial.println(err);delay(1000);
+    return;
+  }
 
-  //Print temp and humidity values to serial monitor
-  Serial.print("Humidity: ");
-  Serial.print(hum);
-  Serial.print(" %, Temp: ");
-  Serial.print(temp);
-  Serial.println(" Celsius");
+  Serial.print("Sample OK: ");
+  Serial.print((int)temperature); Serial.print(" *C, ");
+  Serial.print((int)humidity); Serial.println("% H");
+
+  // DHT11 sampling rate is 1HZ.
+  delay(1500);
 }

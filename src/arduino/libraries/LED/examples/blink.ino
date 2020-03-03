@@ -16,7 +16,7 @@ void setup() {
 void loop() {
   led.ON();     // turn the LED on
   delay(1000);  // wait for a second
-  led.Off();    // turn the LED off
+  led.OFF();    // turn the LED off
   delay(1000);  // wait for a second
   led.setPercent(50);  // turn the LED on with half brightness
   delay(1000);  // wait for a second
