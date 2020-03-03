@@ -21,7 +21,7 @@ class RGB{
     void ON();
     void OFF();
     void setPercent(int perc);
-    void set(int value);
+    void set(int red, int green, int blue);
     bool switchOnOff();
     bool getState();
   private:

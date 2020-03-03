@@ -2,7 +2,7 @@
    Temperature and humidity sensor
 */
 
-#include <DHT.h>;
+#include <DHT.h>
 
 #define DHTPIN 7 // what pin we're connected to
 #define DHTTYPE DHT22 // DHT 22  (AM2302)

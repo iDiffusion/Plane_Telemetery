@@ -35,12 +35,20 @@ void RGB::set(int red, int green, int blue) {
   }
 }
 
-bool LED::switchOnOff() {
-  int state = digitalRead(_pin);
-  digitalWrite(_pin, !state);
+bool RGB::switchOnOff() {
+  int state = getState();
+  if(state) {
+    OFF();
+  } else {
+    ON();
+  }
   return !state;
 }
 
-bool LED::getState(){
-  return digitalRead(_pin);
+bool RGB::getState(){
+  int state = 0;
+  for(int i = 0; i < 3, i++) {
+     state += digitalRead(_pin[i]);
+  }
+  return state;
 }
