@@ -17,7 +17,6 @@ class LED {
     void set(int value);
     bool switchOnOff();
     bool getState();
-    int getValue();
   private:
     int _pin;
 };

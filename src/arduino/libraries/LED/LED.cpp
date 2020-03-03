@@ -38,7 +38,3 @@ bool LED::switchOnOff() {
 bool LED::getState(){
   return digitalRead(_pin);
 }
-
-int LED::getValue(){
-  return analogRead(_pin);
-}
