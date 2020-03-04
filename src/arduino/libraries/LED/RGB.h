@@ -25,7 +25,7 @@ class RGB{
     bool switchOnOff();
     bool getState();
   private:
-    int[] _pin, _value;
+    int _pin[], _value[];
     bool checkValue();
 };
 
